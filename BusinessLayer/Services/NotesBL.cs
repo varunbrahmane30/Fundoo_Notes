@@ -15,6 +15,17 @@ namespace BusinessLayer.Services
             this._notesRL = notesRL;
         }
 
+        public List<Notes> getAllNotes(long id)
+        {
+            try
+            {
+                return this._notesRL.getAllNotes(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public bool CreateNotes(NotesModel notesModel,long userId)
         {
             try
@@ -51,16 +62,52 @@ namespace BusinessLayer.Services
             }
         }
 
-        public List<Notes> getAllNotes(long token)
+        public bool IsPinned(long id, long noteId, bool value)
         {
             try
             {
-                return this._notesRL.getAllNotes();
+                return this._notesRL.IsPinned(id,noteId,value);
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
+        public bool ChangeColor(long id, long noteId,string color)
+        {
+            try
+            {
+                return this._notesRL.ChangeColor(id, noteId, color);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool IsArchive(long id, long noteId, bool value)
+        {
+            try
+            {
+                return this._notesRL.IsArchive(id, noteId, value);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool IsTrash(long id, long noteId, bool value)
+        {
+            try
+            {
+                return this._notesRL.IsTrash(id, noteId,value);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }    
     }
 }
