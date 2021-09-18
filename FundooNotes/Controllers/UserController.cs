@@ -41,6 +41,7 @@ namespace FundooNotes.Controllers
             return this.Ok(new { Success = true, message = "Get User Data SuccessFully.", Data = useList });
         }
 
+
         [HttpPost]
         public IActionResult RegisterUser(UserModel userModel)
         {
