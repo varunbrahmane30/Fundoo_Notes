@@ -21,15 +21,15 @@ namespace RepositoryLayer.Services
         }
 
 
-        public List<Notes> getAllNotes(long token)
+        public List<Notes> getAllNotes(long userId)
         {
             try
             {
-                var result = _notesContext.Notes.ToList();
+                var result = _notesContext.Notes.Where(e => e.Userid == userId).ToList();
 
                 return result;
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -107,6 +107,66 @@ namespace RepositoryLayer.Services
 
             return false;
 
+        }
+
+        public bool IsPinned(long id, long noteId,bool value)
+        {
+
+            var result = _notesContext.Notes.FirstOrDefault(e => e.Userid == id && e.isPin != value && e.Id== noteId);
+            
+                if (result != null)
+                {
+                    result.isPin = value;
+                    _notesContext.SaveChanges();
+                    return true;
+                }
+               
+                return false;  
+        }
+
+        public bool ChangeColor(long id, long noteId, string color)
+        {
+
+            var result = _notesContext.Notes.FirstOrDefault(e => e.Userid == id && e.Color != color && e.Id == noteId);
+
+            if (result != null)
+            {
+                result.Color = color;
+                _notesContext.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool IsArchive(long id, long noteId, bool value)
+        {
+
+            var result = _notesContext.Notes.FirstOrDefault(e => e.Userid == id && e.isArchive != value && e.Id == noteId);
+
+            if (result != null)
+            {
+                result.isArchive = value;
+                _notesContext.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool IsTrash(long id, long noteId, bool value)
+        {
+
+            var result = _notesContext.Notes.FirstOrDefault(e => e.Userid == id && e.isTrash != value && e.Id == noteId);
+
+            if (result != null)
+            {
+                result.isTrash = value;
+                _notesContext.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
     }
 }
