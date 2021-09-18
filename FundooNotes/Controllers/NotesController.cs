@@ -6,24 +6,24 @@ using System;
 
 namespace FundooNotes.Controllers
 {
+    [Authorize]
     [Route("notes")]
     [ApiController]
     public class NotesController : ControllerBase
     {
         readonly private INotesBL _notesBL;
-       
+
         public NotesController(INotesBL notesBL)
         {
-             this._notesBL = notesBL;
+            this._notesBL = notesBL;
         }
 
         private long getTokenID()
         {
-          return Convert.ToInt64(User.FindFirst("Id").Value);
+            return Convert.ToInt64(User.FindFirst("Id").Value);
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult GetAllNotes()
         {
             var Id = getTokenID();
@@ -33,7 +33,6 @@ namespace FundooNotes.Controllers
 
 
         [HttpPost]
-        [Authorize]
         public IActionResult CreateNote(NotesModel notesModel)
         {
             try
@@ -60,15 +59,15 @@ namespace FundooNotes.Controllers
                 });
             }
         }
-        
-        [HttpDelete("{id:long}")]
-        [Authorize]
+
+        [HttpDelete]
+        [Route("{id}")]
         public IActionResult DeleteNotes(long id)
         {
             try
             {
                 long userId = getTokenID();
-                var result = this._notesBL.DeleteNotes(id,userId);
+                var result = this._notesBL.DeleteNotes(id, userId);
 
                 if (result == true)
                 {
@@ -91,14 +90,14 @@ namespace FundooNotes.Controllers
 
         }
 
-        [HttpPut("{id:long}")]
-        //[Authorize]
+        [HttpPut]
+        [Route("{id}")]
         public IActionResult UpdateNotes(long id, NotesModel notesModel)
         {
             try
             {
                 var userId = getTokenID();
-                var result = this._notesBL.UpdateNotes(id, userId,notesModel);
+                var result = this._notesBL.UpdateNotes(id, userId, notesModel);
 
                 if (result == true)
                 {
@@ -107,6 +106,128 @@ namespace FundooNotes.Controllers
                 else
                 {
                     return this.BadRequest(new { Success = false, message = "Note updation failed." });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new
+                {
+                    success = false,
+                    message = e.Message,
+                    stackTrace = e.StackTrace
+                });
+            }
+
+        }
+
+        [HttpPut]
+        [Route("pin-unpin/{noteId}")]
+        public IActionResult IsPinned(long noteId, bool value)
+        {
+           
+            try
+            {
+                var Id = getTokenID();
+                var result = this._notesBL.IsPinned(Id, noteId,value);
+
+                if (result == true)
+                {
+                    return this.Ok(new { Success = true, message = "Note pinned." });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "pin remain same" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new
+                {
+                    success = false,
+                    message = e.Message,
+                    stackTrace = e.StackTrace
+                });
+            }
+
+        }
+
+        [HttpPut]
+        [Route("color")]
+        public IActionResult ChangeColor(long noteId,string color)
+        {
+            try
+            {
+                var Id = getTokenID();
+                var result = _notesBL.ChangeColor(Id, noteId,color);
+
+                if (result == true)
+                {
+                    return this.Ok(new { Success = true, message = "color changed." });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "color remain same" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new
+                {
+                    success = false,
+                    message = e.Message,
+                    stackTrace = e.StackTrace
+                });
+            }
+
+        }
+
+        [HttpPut]
+        [Route("isArchive/{noteId}")]
+        public IActionResult IsArchive(long noteId, bool value)
+        {
+
+            try
+            {
+                var Id = getTokenID();
+                var result = this._notesBL.IsArchive(Id, noteId, value);
+
+                if (result == true)
+                {
+                    return this.Ok(new { Success = true, message = "Note Archived." });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "Archive remain same" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new
+                {
+                    success = false,
+                    message = e.Message,
+                    stackTrace = e.StackTrace
+                });
+            }
+
+        }
+
+        [HttpPut]
+        [Route("isTrash/{noteId}")]
+        public IActionResult IsTrash(long noteId, bool value)
+        {
+            try
+            {
+                var Id = getTokenID();
+                var result = this._notesBL.IsTrash(Id, noteId, value);
+
+                if (result == true)
+                {
+                    return this.Ok(new { Success = true, message = "note added into trash." });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "note remain same" });
                 }
             }
             catch (Exception e)
