@@ -16,5 +16,6 @@ namespace CommonLayer
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Password and Confirm Password Must match.")]
         public string ConfirmPassword { get; set; }
+
     }
 }
