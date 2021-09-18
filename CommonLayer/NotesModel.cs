@@ -19,5 +19,6 @@ namespace CommonLayer
         public bool isArchive { get; set; }
 
         public bool isTrash { get; set; }
+
     }
 }
