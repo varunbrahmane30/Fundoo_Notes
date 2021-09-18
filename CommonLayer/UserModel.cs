@@ -18,5 +18,6 @@ namespace CommonLayer
 
         [Required]
         public string Password { get; set; }
+
     }
 }
