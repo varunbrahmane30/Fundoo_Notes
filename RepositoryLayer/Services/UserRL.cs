@@ -21,8 +21,7 @@ namespace BusinessLayer.Services
         { 
                 var result = _userContext.Users.ToList();
 
-                return result;
-            
+                return result;     
         }
 
         public bool RegisterUser(UserModel userModel)
