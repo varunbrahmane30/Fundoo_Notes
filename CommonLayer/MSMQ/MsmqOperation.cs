@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using System.Net.Mail;
 using System.Text;
 using Experimental.System.Messaging;
+using Microsoft.Extensions.Configuration;
 using MimeKit;
 
 namespace CommonLayer.MSMQ
 {
     public class MsmqOperation
     {
+        //private IConfiguration _config;
+        //public MsmqOperation(IConfiguration config)
+        //{
+        //    _config = config;
+        //}
+
         MessageQueue msmq = new MessageQueue();
+        
 
         public void sendingData(string token)
         {
@@ -67,6 +75,9 @@ namespace CommonLayer.MSMQ
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com",587);
             smtpClient.Credentials = new System.Net.NetworkCredential()
             {
+                //_config["UserName"]
+                //_config["login:Password"]
+
                 UserName = "sendertohost@gmail.com",
                 Password = "Test@123"
             };
