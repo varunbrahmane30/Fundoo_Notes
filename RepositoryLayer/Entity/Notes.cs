@@ -24,6 +24,8 @@ namespace RepositoryLayer.Entity
 
         public bool isArchive { get; set; }
 
+        public bool isPin { get; set; }
+
         public bool isTrash { get; set; }
 
         public DateTime CreatedAt { get; set; }
@@ -33,5 +35,6 @@ namespace RepositoryLayer.Entity
         // navigation property.
         public long Userid { get; set; }
         public User User { get; set; }
+        public List<Collaboration> collaborations { get; set; }
     }
 }
