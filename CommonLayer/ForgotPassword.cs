@@ -10,5 +10,7 @@ namespace CommonLayer
         [Required]
         [EmailAddress]
         public String Email { get; set; }
+
+
     }
 }
