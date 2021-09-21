@@ -26,7 +26,7 @@ namespace RepositoryLayer.Entity
 
         // navigation property
         public List<Notes> Note { get; set; }
-        public List<Collaboration> collaborations { get; set; }
-
+       
+        public List<Collaborator> Collaborators { get; set; }
     }
 }
