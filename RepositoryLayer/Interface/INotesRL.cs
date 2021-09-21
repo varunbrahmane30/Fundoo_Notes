@@ -16,6 +16,7 @@ namespace RepositoryLayer.Interface
         public bool ChangeColor(long id, long noteId, string color);
         public bool IsArchive(long id, long noteId, bool value);
         public bool IsTrash(long id, long noteId, bool value);
-
+        public bool AddReminder(long id, long userId, ReminderModel reminderModel);
+        public Notes GetNote(long id);
     }
 }
