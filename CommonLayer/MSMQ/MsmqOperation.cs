@@ -10,12 +10,6 @@ namespace CommonLayer.MSMQ
 {
     public class MsmqOperation
     {
-        //private IConfiguration _config;
-        //public MsmqOperation(IConfiguration config)
-        //{
-        //    _config = config;
-        //}
-
         MessageQueue msmq = new MessageQueue();
         
 
@@ -70,7 +64,12 @@ namespace CommonLayer.MSMQ
         {
             MailMessage mailmsg = new MailMessage("sendertohost@gmail.com", "sendertohost@gmail.com");
             mailmsg.Subject = "Reset password link mail";
-            mailmsg.Body = "https://localhost:44365/api/User/forgotPassword"+token;
+            var body = new StringBuilder();
+
+            body.AppendLine("Hello, To Reset your Account Password click the link below.");
+            body.AppendLine("<a href=\"https://localhost:5001/User/ResetPassword/" + token + "\">Click Here</a>");
+            mailmsg.Body = body.ToString();
+            mailmsg.IsBodyHtml = true;
 
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com",587);
             smtpClient.Credentials = new System.Net.NetworkCredential()
