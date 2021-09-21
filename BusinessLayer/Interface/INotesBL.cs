@@ -14,6 +14,7 @@ namespace BusinessLayer.Interface
         public bool ChangeColor(long Id, long noteId,string color);
         public bool IsArchive(long Id, long noteId, bool value);
         public bool IsTrash(long Id, long noteId, bool value);
+        public bool AddReminder(long id, long userId, ReminderModel reminderModel);
 
-    }
+    } 
 }
