@@ -98,7 +98,14 @@ namespace RepositoryLayer.Services
                 {
                     result.Message = notesModel.Message;
                 }
-                
+                //if(notesModel.Labels != null && notesModel.Labels.Count > 0)
+                //{
+                //    if (result.Labels == null) result.Labels = new string[0];
+                //    var updatedLabels = result.Labels.ToList();
+                //    updatedLabels.AddRange(notesModel.Labels);
+                //    result.Labels = updatedLabels.ToArray();
+                //}
+
                 result.ModifiedAt = DateTime.Now;
                 _notesContext.SaveChanges();
 
@@ -168,5 +175,36 @@ namespace RepositoryLayer.Services
 
             return false;
         }
+
+        public Notes GetNote(long id)
+        {
+            return _notesContext.Notes.Find(id);
+        }
+
+        public bool AddReminder(long id, long userId, ReminderModel reminderModel)
+        {
+
+            var result = _notesContext.Notes.FirstOrDefault(e => e.Id == id && e.Userid == userId);
+
+            if (result != null)
+            {
+                //DateTime date = new DateTime();
+                result.Remainder = reminderModel.ReminderDate;
+                _notesContext.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+
+
+        }
+
+        //public String[] GetLabel(long id)
+        //{
+        //    var noteData = _notesContext.Notes.Find(id);
+
+        //        return noteData.Labels;
+        //}
     }
 }
