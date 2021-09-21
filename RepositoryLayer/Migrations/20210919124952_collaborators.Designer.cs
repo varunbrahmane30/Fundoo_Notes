@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer.Context;
 
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20210919124952_collaborators")]
+    partial class collaborators
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,21 +36,6 @@ namespace RepositoryLayer.Migrations
                     b.ToTable("Collaborators");
                 });
 
-            modelBuilder.Entity("RepositoryLayer.Entity.Label", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Label");
-                });
-
             modelBuilder.Entity("RepositoryLayer.Entity.Notes", b =>
                 {
                     b.Property<long>("Id")
@@ -68,7 +55,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("Remainder")
+                    b.Property<DateTime>("Remainder")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -94,26 +81,6 @@ namespace RepositoryLayer.Migrations
                     b.HasIndex("Userid");
 
                     b.ToTable("Notes");
-                });
-
-            modelBuilder.Entity("RepositoryLayer.Entity.NotesLabel", b =>
-                {
-                    b.Property<long>("LabelId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("NotesId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasIndex("LabelId");
-
-                    b.HasIndex("NotesId");
-
-                    b.ToTable("NotesLabel");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entity.User", b =>
@@ -178,25 +145,6 @@ namespace RepositoryLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RepositoryLayer.Entity.NotesLabel", b =>
-                {
-                    b.HasOne("RepositoryLayer.Entity.Label", "Label")
-                        .WithMany()
-                        .HasForeignKey("LabelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RepositoryLayer.Entity.Notes", "Notes")
-                        .WithMany()
-                        .HasForeignKey("NotesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Label");
-
-                    b.Navigation("Notes");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entity.Notes", b =>
