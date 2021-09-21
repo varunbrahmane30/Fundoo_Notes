@@ -19,6 +19,7 @@ namespace CommonLayer
         public bool isArchive { get; set; }
 
         public bool isTrash { get; set; }
+        public List<string>? Labels { get; set; }
 
     }
 }
