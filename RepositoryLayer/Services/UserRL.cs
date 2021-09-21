@@ -104,5 +104,10 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
+
+        public User GetUserByEmail(string emailId)
+        {
+            return _userContext.Users.SingleOrDefault(user => user.Email.Equals(emailId));
+        }
     }
 }
