@@ -10,9 +10,11 @@ namespace BusinessLayer.Services
     public class NotesBL : INotesBL
     {
         private INotesRL _notesRL;
-        public NotesBL(INotesRL notesRL)
+        private IUserRL _userRL;
+        public NotesBL(INotesRL notesRL, IUserRL userRL)
         {
             this._notesRL = notesRL;
+            _userRL = userRL;
         }
 
         public List<Notes> getAllNotes(long id)
@@ -26,11 +28,11 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
-        public bool CreateNotes(NotesModel notesModel,long userId)
+        public bool CreateNotes(NotesModel notesModel, long userId)
         {
             try
             {
-                return this._notesRL.CreateNotes(notesModel,userId);
+                return this._notesRL.CreateNotes(notesModel, userId);
             }
             catch (Exception)
             {
@@ -42,7 +44,7 @@ namespace BusinessLayer.Services
         {
             try
             {
-                return this._notesRL.DeleteNotes(id,userId);
+                return this._notesRL.DeleteNotes(id, userId);
             }
             catch (Exception)
             {
@@ -50,11 +52,11 @@ namespace BusinessLayer.Services
             }
         }
 
-        public bool UpdateNotes(long id, long userId,NotesModel notesModel)
+        public bool UpdateNotes(long id, long userId, NotesModel notesModel)
         {
             try
             {
-                return this._notesRL.UpdateNotes(id,userId, notesModel);
+                return this._notesRL.UpdateNotes(id, userId, notesModel);
             }
             catch (Exception)
             {
@@ -66,7 +68,7 @@ namespace BusinessLayer.Services
         {
             try
             {
-                return this._notesRL.IsPinned(id,noteId,value);
+                return this._notesRL.IsPinned(id, noteId, value);
             }
             catch (Exception)
             {
@@ -74,7 +76,7 @@ namespace BusinessLayer.Services
             }
         }
 
-        public bool ChangeColor(long id, long noteId,string color)
+        public bool ChangeColor(long id, long noteId, string color)
         {
             try
             {
@@ -102,12 +104,24 @@ namespace BusinessLayer.Services
         {
             try
             {
-                return this._notesRL.IsTrash(id, noteId,value);
+                return this._notesRL.IsTrash(id, noteId, value);
             }
             catch (Exception)
             {
                 throw;
             }
-        }    
+        }
+
+        public bool AddReminder(long id, long userId, ReminderModel reminderModel)
+        {
+            try
+            {
+                return this._notesRL.AddReminder(id, userId, reminderModel);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
