@@ -16,7 +16,7 @@ namespace RepositoryLayer.Entity
 
         public string Message { get; set; }
 
-        public DateTime Remainder { get; set; }
+        public DateTime? Remainder { get; set; }
 
         public string Color { get; set; }
 
@@ -35,6 +35,11 @@ namespace RepositoryLayer.Entity
         // navigation property.
         public long Userid { get; set; }
         public User User { get; set; }
-        public List<Collaboration> collaborations { get; set; }
+        public List<Collaborator> collaborations { get; set; }
+        [NotMapped]
+        public List<NotesLabel> NotesLabel { get; set; }
+
+
+
     }
 }
