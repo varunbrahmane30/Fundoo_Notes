@@ -120,6 +120,7 @@ namespace FundooNotes.Controllers
 
         }
 
+
         [HttpPut]
         [Route("pin-unpin/{noteId}")]
         public IActionResult IsPinned(long noteId, bool value)
@@ -182,10 +183,9 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPut]
-        [Route("isArchive/{noteId}")]
+        [Route("Archive/{noteId}")]
         public IActionResult IsArchive(long noteId, bool value)
         {
-
             try
             {
                 var Id = getTokenID();
@@ -213,7 +213,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPut]
-        [Route("isTrash/{noteId}")]
+        [Route("Trash/{noteId}")]
         public IActionResult IsTrash(long noteId, bool value)
         {
             try
@@ -228,6 +228,36 @@ namespace FundooNotes.Controllers
                 else
                 {
                     return this.BadRequest(new { Success = false, message = "note remain same" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new
+                {
+                    success = false,
+                    message = e.Message,
+                    stackTrace = e.StackTrace
+                });
+            }
+
+        }
+
+        [HttpPut]
+        [Route("reminder/{id}")]
+        public IActionResult AddReminder(long id, ReminderModel reminderModel)
+        {
+            try
+            {
+                var userId = getTokenID();
+                var result = this._notesBL.AddReminder(id, userId, reminderModel);
+
+                if (result == true)
+                {
+                    return this.Ok(new { Success = true, message = "Note reminder added SuccessFully.", id });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "something wrong, reminder not added." });
                 }
             }
             catch (Exception e)
