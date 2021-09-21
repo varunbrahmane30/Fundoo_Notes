@@ -30,13 +30,18 @@ namespace FundooNotes
         {
             var connectionString = Configuration.GetConnectionString("FundooDb");
             services.AddDbContext<UserContext>(options => options.UseSqlServer(connectionString));
-           // services.AddDbContext<NotesContext>(options => options.UseSqlServer(connectionString));
 
             services.AddTransient<IUserBL, UserBL>();
             services.AddTransient<IUserRL, UserRL>();
 
             services.AddTransient<INotesBL, NotesBL>();
             services.AddTransient<INotesRL, NotesRL>();
+
+            services.AddTransient<ICollaboratorRL, CollaboratorRL>();
+            services.AddTransient<ICollaboratorBL, CollaboratorBL>();
+
+            services.AddTransient<ILabelBL, LabelBL>();
+            services.AddTransient<ILabelRL, LabelRL>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -94,8 +99,6 @@ namespace FundooNotes
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json","my api v1");
-                //c.RoutePrefix = "";
-                //c.SupportedSubmitMethods();
             });
 
             app.UseHttpsRedirection();
