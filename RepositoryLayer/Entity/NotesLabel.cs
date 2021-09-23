@@ -8,11 +8,11 @@ namespace RepositoryLayer.Entity
 {
     public class NotesLabel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long id { get; set; }
+        [Key, Column(Order = 0)]
         public long NotesId { get; set; }
         public Notes Notes { get; set; }
+
+        [Key, Column(Order = 1)]
         public long LabelId { get; set; }
         public Label Label { get; set; }
     }

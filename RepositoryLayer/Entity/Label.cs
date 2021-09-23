@@ -11,8 +11,7 @@ namespace RepositoryLayer.Entity
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        public String Name { get; set; }
-        [NotMapped]
+        public string Name { get; set; }
         public List<NotesLabel> NotesLabel { get; set; }
 
     }

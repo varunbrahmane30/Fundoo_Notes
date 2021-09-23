@@ -36,10 +36,6 @@ namespace RepositoryLayer.Entity
         public long Userid { get; set; }
         public User User { get; set; }
         public List<Collaborator> collaborations { get; set; }
-        [NotMapped]
         public List<NotesLabel> NotesLabel { get; set; }
-
-
-
     }
 }
