@@ -26,7 +26,7 @@ namespace RepositoryLayer.Services
             try
             {
                 var result = _notesContext.Notes.Where(e => e.Userid == userId).ToList();
-
+                result.AddRange(GetSharedNotes(userId));
                 return result;
             }
             catch (Exception)
@@ -34,16 +34,27 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+
+        private List<Notes> GetSharedNotes(long userId)
+        {
+            var noteIds = _notesContext.Collaborators.Where(e => e.UserId == userId).Select(e => e.NoteId);
+            var sharedNotes = new List<Notes>();
+            foreach(var noteId in noteIds)
+            {
+                sharedNotes.Add(_notesContext.Notes.FirstOrDefault(note => note.Id.Equals(noteId)));
+            }
+            return sharedNotes;
+        }
+
         public bool CreateNotes(NotesModel notesModel, long userId)
         {
             try
             {
-                //var decrept = UserContext;
                 Notes notes = new Notes();
 
                 notes.Title = notesModel.Title;
                 notes.Message = notesModel.Message;
-                notes.Remainder = DateTime.Now;
+                notes.Remainder = null;
                 notes.Color = notesModel.Color;
                 notes.image = notesModel.image;
                 notes.isArchive = notesModel.isArchive;
@@ -97,14 +108,7 @@ namespace RepositoryLayer.Services
                 if(notesModel.Message!= null)
                 {
                     result.Message = notesModel.Message;
-                }
-                //if(notesModel.Labels != null && notesModel.Labels.Count > 0)
-                //{
-                //    if (result.Labels == null) result.Labels = new string[0];
-                //    var updatedLabels = result.Labels.ToList();
-                //    updatedLabels.AddRange(notesModel.Labels);
-                //    result.Labels = updatedLabels.ToArray();
-                //}
+                }   
 
                 result.ModifiedAt = DateTime.Now;
                 _notesContext.SaveChanges();
@@ -116,14 +120,22 @@ namespace RepositoryLayer.Services
 
         }
 
-        public bool IsPinned(long id, long noteId,bool value)
+        public bool IsPinned(long id, long noteId)
         {
 
-            var result = _notesContext.Notes.FirstOrDefault(e => e.Userid == id && e.isPin != value && e.Id== noteId);
+            var result = _notesContext.Notes.FirstOrDefault(e => e.Userid == id && e.Id== noteId);
             
                 if (result != null)
                 {
-                    result.isPin = value;
+                    if(result.isPin == true)
+                    {
+                        result.isPin = false;
+                    }
+                    else
+                    {
+                        result.isPin = true;
+                    }
+                   
                     _notesContext.SaveChanges();
                     return true;
                 }
@@ -146,14 +158,21 @@ namespace RepositoryLayer.Services
             return false;
         }
 
-        public bool IsArchive(long id, long noteId, bool value)
+        public bool IsArchive(long id, long noteId)
         {
 
-            var result = _notesContext.Notes.FirstOrDefault(e => e.Userid == id && e.isArchive != value && e.Id == noteId);
+            var result = _notesContext.Notes.FirstOrDefault(e => e.Userid == id && e.Id == noteId);
 
             if (result != null)
             {
-                result.isArchive = value;
+                if (result.isArchive == true)
+                {
+                    result.isArchive = false;
+                }
+                else
+                {
+                    result.isArchive = true;
+                }
                 _notesContext.SaveChanges();
                 return true;
             }
@@ -161,14 +180,21 @@ namespace RepositoryLayer.Services
             return false;
         }
 
-        public bool IsTrash(long id, long noteId, bool value)
+        public bool IsTrash(long id, long noteId)
         {
 
-            var result = _notesContext.Notes.FirstOrDefault(e => e.Userid == id && e.isTrash != value && e.Id == noteId);
+            var result = _notesContext.Notes.FirstOrDefault(e => e.Userid == id && e.Id == noteId);
 
             if (result != null)
             {
-                result.isTrash = value;
+                if (result.isTrash == true)
+                {
+                    result.isTrash = false;
+                }
+                else
+                {
+                    result.isTrash = true;
+                }
                 _notesContext.SaveChanges();
                 return true;
             }
@@ -199,12 +225,5 @@ namespace RepositoryLayer.Services
 
 
         }
-
-        //public String[] GetLabel(long id)
-        //{
-        //    var noteData = _notesContext.Notes.Find(id);
-
-        //        return noteData.Labels;
-        //}
     }
 }

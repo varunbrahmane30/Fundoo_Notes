@@ -34,17 +34,17 @@ namespace RepositoryLayer.Services
                 }
                 else { return false; }
             }
-            catch
+            catch (Exception e)
             {
                 throw;
             }
         }
 
-        public bool DeleteLabel(long noteId, AddLabelRequest label)
+        public bool DeleteLabel(long labelId)
         {
             try
             {
-                var result = _labelContext.Label.FirstOrDefault(e => e.Id == noteId && e.Name == label.Label);
+                var result = _labelContext.Label.FirstOrDefault(e => e.Id == labelId);
                 if (result != null)
                 {
                     _labelContext.Label.Remove(result);
@@ -62,11 +62,11 @@ namespace RepositoryLayer.Services
             }
         }
 
-        public bool UpdateLabel(long noteId, AddLabelRequest label)
+        public bool UpdateLabel(long labelId, AddLabelRequest label)
         {
             try
             {
-                var result = _labelContext.Label.FirstOrDefault(e => e.Id == noteId);
+                var result = _labelContext.Label.FirstOrDefault(e => e.Id == labelId);
                 if (result != null)
                 {
                     result.Name = label.Label;
