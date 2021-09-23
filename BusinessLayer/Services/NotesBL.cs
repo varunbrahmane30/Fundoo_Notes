@@ -64,11 +64,11 @@ namespace BusinessLayer.Services
             }
         }
 
-        public bool IsPinned(long id, long noteId, bool value)
+        public bool IsPinned(long id, long noteId)
         {
             try
             {
-                return this._notesRL.IsPinned(id, noteId, value);
+                return this._notesRL.IsPinned(id, noteId);
             }
             catch (Exception)
             {
@@ -88,11 +88,11 @@ namespace BusinessLayer.Services
             }
         }
 
-        public bool IsArchive(long id, long noteId, bool value)
+        public bool IsArchive(long id, long noteId)
         {
             try
             {
-                return this._notesRL.IsArchive(id, noteId, value);
+                return this._notesRL.IsArchive(id, noteId);
             }
             catch (Exception)
             {
@@ -100,11 +100,11 @@ namespace BusinessLayer.Services
             }
         }
 
-        public bool IsTrash(long id, long noteId, bool value)
+        public bool IsTrash(long id, long noteId)
         {
             try
             {
-                return this._notesRL.IsTrash(id, noteId, value);
+                return this._notesRL.IsTrash(id, noteId);
             }
             catch (Exception)
             {
