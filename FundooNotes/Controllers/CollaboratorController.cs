@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace FundooNotes.Controllers
 {
     [Authorize]
-    [Route("Collaborator")]
+    [Route("{noteId}/collaborator")]
     [ApiController]
     public class CollaboratorController : ControllerBase
     {
@@ -24,7 +24,7 @@ namespace FundooNotes.Controllers
             return Convert.ToInt64(User.FindFirst("Id").Value);
         }
         [HttpGet]
-        [Route("{noteId}")]
+        [Route("")]
         public IActionResult GetCollborator(long noteId)
         {
             //var Id = getTokenID();
@@ -34,7 +34,7 @@ namespace FundooNotes.Controllers
 
 
         [HttpPost]
-        [Route("{noteId}")]
+        [Route("")]
         public IActionResult AddCollaborator(long noteId, AddCollaboratorRequest collaborators)
         {
             try
@@ -61,7 +61,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpDelete]
-        [Route("{noteId}")]
+        [Route("")]
         public IActionResult DeleteCollaborator(long noteId, AddCollaboratorRequest collaborators)
         {
             try
