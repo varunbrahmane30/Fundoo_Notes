@@ -10,10 +10,10 @@ namespace BusinessLayer.Interface
         public bool CreateNotes(NotesModel notesModel, long userId);
         public bool DeleteNotes(long id, long userId);
         public bool UpdateNotes(long id,long userId, NotesModel notesModel);
-        public bool IsPinned(long Id, long noteId,bool value);
+        public bool IsPinned(long Id, long noteId);
         public bool ChangeColor(long Id, long noteId,string color);
-        public bool IsArchive(long Id, long noteId, bool value);
-        public bool IsTrash(long Id, long noteId, bool value);
+        public bool IsArchive(long Id, long noteId);
+        public bool IsTrash(long Id, long noteId);
         public bool AddReminder(long id, long userId, ReminderModel reminderModel);
 
     } 
