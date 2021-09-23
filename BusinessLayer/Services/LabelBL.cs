@@ -30,11 +30,11 @@ namespace BusinessLayer.Services
            
         }
 
-        public bool DeleteLabel(long noteId, AddLabelRequest label)
+        public bool DeleteLabel(long labelId)
         {
             try
             {
-                return _labelRL.DeleteLabel(noteId, label);
+                return _labelRL.DeleteLabel(labelId);
             }
             catch (Exception)
             {
@@ -43,11 +43,11 @@ namespace BusinessLayer.Services
 
         }
 
-        public bool UpdateLabel(long noteId, AddLabelRequest label)
+        public bool UpdateLabel(long labelId, AddLabelRequest label)
         {
             try
             {
-                return _labelRL.UpdateLabel(noteId, label);
+                return _labelRL.UpdateLabel(labelId, label);
             }
             catch (Exception)
             {
