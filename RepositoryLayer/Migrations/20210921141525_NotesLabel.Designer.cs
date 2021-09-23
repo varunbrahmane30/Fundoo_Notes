@@ -10,8 +10,8 @@ using RepositoryLayer.Context;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210920174018_label1")]
-    partial class label1
+    [Migration("20210921141525_NotesLabel")]
+    partial class NotesLabel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,7 +70,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Remainder")
+                    b.Property<DateTime?>("Remainder")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -100,20 +100,15 @@ namespace RepositoryLayer.Migrations
 
             modelBuilder.Entity("RepositoryLayer.Entity.NotesLabel", b =>
                 {
-                    b.Property<long>("LabelId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("NotesId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<long>("LabelId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("NotesId", "LabelId");
 
                     b.HasIndex("LabelId");
-
-                    b.HasIndex("NotesId");
 
                     b.ToTable("NotesLabel");
                 });
@@ -185,13 +180,13 @@ namespace RepositoryLayer.Migrations
             modelBuilder.Entity("RepositoryLayer.Entity.NotesLabel", b =>
                 {
                     b.HasOne("RepositoryLayer.Entity.Label", "Label")
-                        .WithMany()
+                        .WithMany("NotesLabel")
                         .HasForeignKey("LabelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("RepositoryLayer.Entity.Notes", "Notes")
-                        .WithMany()
+                        .WithMany("NotesLabel")
                         .HasForeignKey("NotesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -201,9 +196,16 @@ namespace RepositoryLayer.Migrations
                     b.Navigation("Notes");
                 });
 
+            modelBuilder.Entity("RepositoryLayer.Entity.Label", b =>
+                {
+                    b.Navigation("NotesLabel");
+                });
+
             modelBuilder.Entity("RepositoryLayer.Entity.Notes", b =>
                 {
                     b.Navigation("collaborations");
+
+                    b.Navigation("NotesLabel");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entity.User", b =>

@@ -98,20 +98,15 @@ namespace RepositoryLayer.Migrations
 
             modelBuilder.Entity("RepositoryLayer.Entity.NotesLabel", b =>
                 {
-                    b.Property<long>("LabelId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("NotesId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<long>("LabelId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("NotesId", "LabelId");
 
                     b.HasIndex("LabelId");
-
-                    b.HasIndex("NotesId");
 
                     b.ToTable("NotesLabel");
                 });
@@ -183,13 +178,13 @@ namespace RepositoryLayer.Migrations
             modelBuilder.Entity("RepositoryLayer.Entity.NotesLabel", b =>
                 {
                     b.HasOne("RepositoryLayer.Entity.Label", "Label")
-                        .WithMany()
+                        .WithMany("NotesLabel")
                         .HasForeignKey("LabelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("RepositoryLayer.Entity.Notes", "Notes")
-                        .WithMany()
+                        .WithMany("NotesLabel")
                         .HasForeignKey("NotesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -199,9 +194,16 @@ namespace RepositoryLayer.Migrations
                     b.Navigation("Notes");
                 });
 
+            modelBuilder.Entity("RepositoryLayer.Entity.Label", b =>
+                {
+                    b.Navigation("NotesLabel");
+                });
+
             modelBuilder.Entity("RepositoryLayer.Entity.Notes", b =>
                 {
                     b.Navigation("collaborations");
+
+                    b.Navigation("NotesLabel");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entity.User", b =>

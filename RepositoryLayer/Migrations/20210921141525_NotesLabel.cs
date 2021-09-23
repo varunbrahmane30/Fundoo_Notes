@@ -2,23 +2,10 @@
 
 namespace RepositoryLayer.Migrations
 {
-    public partial class label : Migration
+    public partial class NotesLabel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Label",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Label", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "NotesLabel",
                 columns: table => new
@@ -28,6 +15,7 @@ namespace RepositoryLayer.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_NotesLabel", x => new { x.NotesId, x.LabelId });
                     table.ForeignKey(
                         name: "FK_NotesLabel_Label_LabelId",
                         column: x => x.LabelId,
@@ -46,20 +34,12 @@ namespace RepositoryLayer.Migrations
                 name: "IX_NotesLabel_LabelId",
                 table: "NotesLabel",
                 column: "LabelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NotesLabel_NotesId",
-                table: "NotesLabel",
-                column: "NotesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "NotesLabel");
-
-            migrationBuilder.DropTable(
-                name: "Label");
         }
     }
 }

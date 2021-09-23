@@ -10,7 +10,7 @@ using RepositoryLayer.Context;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210920155203_label")]
+    [Migration("20210921141051_label")]
     partial class label
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,7 +70,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Remainder")
+                    b.Property<DateTime?>("Remainder")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -96,21 +96,6 @@ namespace RepositoryLayer.Migrations
                     b.HasIndex("Userid");
 
                     b.ToTable("Notes");
-                });
-
-            modelBuilder.Entity("RepositoryLayer.Entity.NotesLabel", b =>
-                {
-                    b.Property<long>("LabelId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("NotesId")
-                        .HasColumnType("bigint");
-
-                    b.HasIndex("LabelId");
-
-                    b.HasIndex("NotesId");
-
-                    b.ToTable("NotesLabel");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entity.User", b =>
@@ -175,25 +160,6 @@ namespace RepositoryLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RepositoryLayer.Entity.NotesLabel", b =>
-                {
-                    b.HasOne("RepositoryLayer.Entity.Label", "Label")
-                        .WithMany()
-                        .HasForeignKey("LabelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RepositoryLayer.Entity.Notes", "Notes")
-                        .WithMany()
-                        .HasForeignKey("NotesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Label");
-
-                    b.Navigation("Notes");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entity.Notes", b =>
