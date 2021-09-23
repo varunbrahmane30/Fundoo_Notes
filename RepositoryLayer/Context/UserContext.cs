@@ -24,17 +24,11 @@ namespace RepositoryLayer.Context
                 entity.HasIndex(e => e.Email).IsUnique();
             });
 
-            builder.Entity<NotesLabel>(builder =>
+            builder.Entity<NotesLabel>(entity =>
             {
-                 builder.HasNoKey();
-                 builder.ToTable("NotesLabel");
+                entity.HasKey(e => new { e.NotesId, e.LabelId });
             });
-
-            //builder.Entity<Notes>()
-            //.Property(e => e.Labels)
-            //.HasConversion(
-            //    v => string.Join(',', v),
-            //    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
+           
             builder.Entity<Collaborator>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.NoteId });
