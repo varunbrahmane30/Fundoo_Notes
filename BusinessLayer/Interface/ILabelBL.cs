@@ -8,7 +8,7 @@ namespace BusinessLayer.Interface
     public interface ILabelBL
     {
         public bool AddLabel(long noteId,AddLabelRequest label);
-        public bool DeleteLabel(long noteId, AddLabelRequest label);
-        public bool UpdateLabel(long noteId, AddLabelRequest label);
+        public bool DeleteLabel(long labelId);
+        public bool UpdateLabel(long labelId, AddLabelRequest label);
     }
 }
