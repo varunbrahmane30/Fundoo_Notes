@@ -1,11 +1,16 @@
-using BusinessLayer.Interface;
-using CommonLayer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
-
+//-----------------------------------------------------------------------
+// <copyright file="NotesController.cs" company="Varun">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace FundooNotes.Controllers
 {
+    using System;
+    using BusinessLayer.Interface;
+    using CommonLayer;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
     [Authorize]
     [Route("notes")]
     [ApiController]
@@ -122,14 +127,14 @@ namespace FundooNotes.Controllers
 
 
         [HttpPut]
-        [Route("pin-unpin/{noteId}")]
-        public IActionResult IsPinned(long noteId, bool value)
+        [Route("{noteId}/pin")]
+        public IActionResult IsPinned(long noteId)
         {
            
             try
             {
                 var Id = getTokenID();
-                var result = this._notesBL.IsPinned(Id, noteId,value);
+                var result = this._notesBL.IsPinned(Id, noteId);
 
                 if (result == true)
                 {
@@ -183,13 +188,13 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPut]
-        [Route("Archive/{noteId}")]
-        public IActionResult IsArchive(long noteId, bool value)
+        [Route("{noteId}/Archive")]
+        public IActionResult IsArchive(long noteId)
         {
             try
             {
                 var Id = getTokenID();
-                var result = this._notesBL.IsArchive(Id, noteId, value);
+                var result = this._notesBL.IsArchive(Id, noteId);
 
                 if (result == true)
                 {
@@ -213,13 +218,13 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPut]
-        [Route("Trash/{noteId}")]
-        public IActionResult IsTrash(long noteId, bool value)
+        [Route("{noteId}/Trash")]
+        public IActionResult IsTrash(long noteId)
         {
             try
             {
                 var Id = getTokenID();
-                var result = this._notesBL.IsTrash(Id, noteId, value);
+                var result = this._notesBL.IsTrash(Id, noteId);
 
                 if (result == true)
                 {
@@ -243,7 +248,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPut]
-        [Route("reminder/{id}")]
+        [Route("{id}/reminder")]
         public IActionResult AddReminder(long id, ReminderModel reminderModel)
         {
             try
