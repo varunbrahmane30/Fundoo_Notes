@@ -1,5 +1,4 @@
-﻿
-namespace CommonLayer
+﻿namespace CommonLayer
 {
     public class AddCollaboratorRequest
     {

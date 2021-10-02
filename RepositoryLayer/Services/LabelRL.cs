@@ -1,15 +1,14 @@
-﻿using CommonLayer;
-using RepositoryLayer.Context;
-using RepositoryLayer.Entity;
-using RepositoryLayer.Interface;
-using System;
-using System.Linq;
-
-namespace RepositoryLayer.Services
+﻿namespace RepositoryLayer.Services
 {
+    using System;
+    using System.Linq;
+    using CommonLayer;
+    using RepositoryLayer.Context;
+    using RepositoryLayer.Entity;
+    using RepositoryLayer.Interface;
     public class LabelRL : ILabelRL
     {
-        private UserContext _labelContext;
+        readonly private UserContext _labelContext;
 
         public LabelRL(UserContext labelContext)
         {
@@ -19,14 +18,16 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                Label labels = new Label();
-                labels.Name = label.Label;
-
+                Label labels = new Label()
+                {
+                    Name = label.Label
+                };
+               
                 _labelContext.Add(labels);
 
                 int result = _labelContext.SaveChanges();
-                var labelData = GetByName(labels.Name);
-                addLabelToNote(noteId, labelData);
+                var labelData = this.GetByName(labels.Name);
+                AddLabelToNote(noteId, labelData);
 
                 if (result > 0)
                 {
@@ -34,7 +35,7 @@ namespace RepositoryLayer.Services
                 }
                 else { return false; }
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 throw;
             }
@@ -84,11 +85,14 @@ namespace RepositoryLayer.Services
             }
         }
 
-        private void addLabelToNote(long noteId, Label label)
+        private void AddLabelToNote(long noteId,Label label)
         {
-            NotesLabel notesLabel = new NotesLabel();
-            notesLabel.NotesId = noteId;
-            notesLabel.LabelId = label.Id;
+            NotesLabel notesLabel = new NotesLabel()
+            {
+                NotesId = noteId,
+                LabelId = label.Id
+            };
+
             _labelContext.NotesLabel.Add(notesLabel);
 
             _labelContext.SaveChanges();

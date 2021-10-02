@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿
 namespace RepositoryLayer.Entity
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     public class Collaborator
     {
         [Key, Column(Order = 0)]

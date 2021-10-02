@@ -1,13 +1,17 @@
-﻿using CommonLayer;
-using RepositoryLayer.Entity;
-using System.Collections.Generic;
-
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="IUser.cs" 
+// </copyright>
+// <author>Varun Brahmane</author>
+//-----------------------------------------------------------------------
 namespace BusinessLayer.Interface
 {
+    using System.Collections.Generic;
+    using CommonLayer;
+    using RepositoryLayer.Entity;
+    
     public interface IUserBL
     {
-        List<User> getAllUsers();
+        List<User> GetAllUsers();
         bool RegisterUser(UserModel userModel);
         User UserLogIn(LogInModel logInModel);
         User ForgotPassword(ForgotPassWord forgotPassWord);

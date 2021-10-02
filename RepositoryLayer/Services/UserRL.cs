@@ -10,14 +10,14 @@ namespace BusinessLayer.Services
 {
     public class UserRL : IUserRL
     {
-        private UserContext _userContext;
+        readonly private UserContext _userContext;
 
         public UserRL(UserContext userContext)
         {
             this._userContext = userContext;
         }
 
-        public List<User> getAllUsers()
+        public List<User> GetAllUsers()
         { 
                 var result = _userContext.Users.ToList();
 
@@ -28,13 +28,15 @@ namespace BusinessLayer.Services
         {
             try
             {
-                User user = new User();
-                user.FirstName = userModel.FirstName;
-                user.LastName = userModel.LastName;
-                user.Email = userModel.Email;
-                user.Password = userModel.Password;
-                user.CreatedAt = DateTime.Now;
-                user.ModifiedAt = null;
+                User user = new User()
+                {
+                    FirstName = userModel.FirstName,
+                    LastName = userModel.LastName,
+                    Email = userModel.Email,
+                    Password = userModel.Password,
+                    CreatedAt = DateTime.Now,
+                    ModifiedAt = null
+                };
 
                 this._userContext.Users.Add(user);
                 int result = _userContext.SaveChanges();
@@ -56,8 +58,8 @@ namespace BusinessLayer.Services
             try
             {
                 User resultData = _userContext.Users.SingleOrDefault(e =>
-                            e.Email == logInModel.email
-                            && e.Password == logInModel.password);
+                            e.Email == logInModel.Email
+                            && e.Password == logInModel.Password);
 
                 return resultData;
             }

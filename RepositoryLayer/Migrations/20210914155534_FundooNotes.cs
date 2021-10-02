@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace RepositoryLayer.Migrations
+﻿namespace RepositoryLayer.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
     public partial class FundooNotes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

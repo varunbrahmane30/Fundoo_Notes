@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace RepositoryLayer.Migrations
+﻿namespace RepositoryLayer.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
     public partial class isPinAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

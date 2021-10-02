@@ -1,16 +1,18 @@
-﻿using BusinessLayer.Interface;
-using CommonLayer;
-using RepositoryLayer.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="LabelBL.cs" 
+// </copyright>
+// <author>Varun Brahmane</author>
+//-----------------------------------------------------------------------
 namespace BusinessLayer.Services
 {
+    using BusinessLayer.Interface;
+    using CommonLayer;
+    using RepositoryLayer.Interface;
+    using System;
     public class LabelBL : ILabelBL
     {
         
-        private ILabelRL _labelRL;
+        readonly private ILabelRL _labelRL;
         public LabelBL(ILabelRL labelRL)
         {
             this._labelRL = labelRL;

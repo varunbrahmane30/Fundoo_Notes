@@ -19,7 +19,7 @@ namespace FundooNotes.Controllers
             this._collaboratorBL = collaboratorBL;
         }
 
-        private long getTokenID()
+        private long GetTokenID()
         {
             return Convert.ToInt64(User.FindFirst("Id").Value);
         }
@@ -39,7 +39,7 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var userId = getTokenID();
+                var userId = GetTokenID();
                 if (_collaboratorBL.AddCollborators(userId, noteId, collaborators))
                 {
                     return this.Ok(new { Success = true, message = "collaborator added SuccessFully.", noteId });
@@ -66,7 +66,7 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var userId = getTokenID();
+                var userId = GetTokenID();
                 if (_collaboratorBL.DeleteCollborators(userId, noteId, collaborators))
                 {
                     return this.Ok(new { Success = true, message = "collaborator deleted SuccessFully.", noteId });

@@ -1,19 +1,21 @@
-﻿using CommonLayer;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using CommonLayer;
+using Microsoft.AspNetCore.Http;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
+
 
 namespace RepositoryLayer.Services
 {
     public class NotesRL : INotesRL
     {
-        private UserContext _notesContext;
+        readonly private UserContext _notesContext;
 
         public NotesRL(UserContext noteContext)
         {
@@ -21,7 +23,7 @@ namespace RepositoryLayer.Services
         }
 
 
-        public List<Notes> getAllNotes(long userId)
+        public List<Notes> GetAllNotes(long userId)
         {
             try
             {
@@ -50,19 +52,20 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                Notes notes = new Notes();
-
-                notes.Title = notesModel.Title;
-                notes.Message = notesModel.Message;
-                notes.Remainder = null;
-                notes.Color = notesModel.Color;
-                notes.image = notesModel.image;
-                notes.isArchive = notesModel.isArchive;
-                notes.isTrash = notesModel.isTrash;
-                notes.CreatedAt = DateTime.Now;
-                notes.ModifiedAt = null;
-                notes.Userid = userId;
-             
+                Notes notes = new Notes()
+                {
+                    Title = notesModel.Title,
+                    Message = notesModel.Message,
+                    Remainder = null,
+                    Color = notesModel.Color,
+                    image = notesModel.Image,
+                    isArchive = notesModel.IsArchive,
+                    isTrash = notesModel.IsTrash,
+                    CreatedAt = DateTime.Now,
+                    ModifiedAt = null,
+                    Userid = userId
+                };
+               
                 this._notesContext.Notes.Add(notes);
                 int result = _notesContext.SaveChanges();
 
@@ -222,8 +225,51 @@ namespace RepositoryLayer.Services
             }
 
             return false;
+        }
 
+        public bool UploadImage(IFormFile file, long noteid)
+        {
+            var CloudinaryData = new CloudinaryDotNet.Cloudinary(new Account
+            {
+                ApiKey = "576811528428257",
+                ApiSecret = "6riKOyBpujQgeobeAphw5NL1CEw",
+                Cloud = "varunbrahmane30"
+            });
 
+            Stream s = file.OpenReadStream();
+
+            var ImageUploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription("test",s)
+            };
+
+            var Result = CloudinaryData.Upload(ImageUploadParams);
+            
+            var result = _notesContext.Notes.FirstOrDefault(e => e.Id == noteid);
+
+            if (result != null)
+            {
+                result.image = Result.Url.ToString();
+                _notesContext.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+
+        }
+
+        public bool DeleteImage(long id)
+        {
+            var result = _notesContext.Notes.FirstOrDefault(e => e.Id == id);
+            if (result != null)
+            {
+                result.image = null;
+                _notesContext.SaveChanges();
+
+                return true;
+            }
+            return false;
         }
     }
 }

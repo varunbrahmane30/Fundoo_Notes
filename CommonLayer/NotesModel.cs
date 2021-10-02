@@ -14,12 +14,12 @@ namespace CommonLayer
 
         public string Color { get; set; }
 
-        public string image { get; set; }
+        public string Image { get; set; }
 
-        public bool isArchive { get; set; }
+        public bool IsArchive { get; set; }
 
-        public bool isTrash { get; set; }
-        public List<string>? Labels { get; set; }
+        public bool IsTrash { get; set; }
+        public List<string> Labels { get; set; }
 
     }
 }

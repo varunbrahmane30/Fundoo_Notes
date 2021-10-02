@@ -8,7 +8,7 @@ namespace BusinessLayer.Interface
 {
     public interface IUserRL
     {
-        List<User> getAllUsers();
+        List<User> GetAllUsers();
         bool RegisterUser(UserModel userModel);
         User UserLogIn(LogInModel logInModel);
         User ForgotPassword(ForgotPassWord forgotPassWord);

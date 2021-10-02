@@ -43,6 +43,19 @@ namespace FundooNotes
             services.AddTransient<ILabelBL, LabelBL>();
             services.AddTransient<ILabelRL, LabelRL>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -57,6 +70,8 @@ namespace FundooNotes
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
+
+            
 
             services.AddControllers();
 
@@ -95,6 +110,8 @@ namespace FundooNotes
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("AllowAll");
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -108,7 +125,7 @@ namespace FundooNotes
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

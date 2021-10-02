@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿
 
 namespace RepositoryLayer.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
     public partial class label : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

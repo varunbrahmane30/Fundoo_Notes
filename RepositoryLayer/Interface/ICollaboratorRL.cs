@@ -1,8 +1,7 @@
-﻿using RepositoryLayer.Entity;
-using System.Collections.Generic;
-
-namespace RepositoryLayer.Interface
+﻿namespace RepositoryLayer.Interface
 {
+    using System.Collections.Generic;
+
     public interface ICollaboratorRL
     {
         

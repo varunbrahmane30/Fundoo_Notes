@@ -1,27 +1,34 @@
-﻿using BusinessLayer.Interface;
-using CommonLayer;
-using RepositoryLayer.Entity;
-using RepositoryLayer.Interface;
-using System;
-using System.Collections.Generic;
+﻿//-----------------------------------------------------------------------
+// <copyright file="NotesBL.cs" 
+// </copyright>
+// <author>Varun Brahmane</author>
+//-----------------------------------------------------------------------
 
 namespace BusinessLayer.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using BusinessLayer.Interface;
+    using CommonLayer;
+    using Microsoft.AspNetCore.Http;
+    using RepositoryLayer.Entity;
+    using RepositoryLayer.Interface;
+ 
     public class NotesBL : INotesBL
     {
-        private INotesRL _notesRL;
-        private IUserRL _userRL;
+        readonly private INotesRL _notesRL;
+        readonly private IUserRL _userRL;
         public NotesBL(INotesRL notesRL, IUserRL userRL)
         {
             this._notesRL = notesRL;
-            _userRL = userRL;
+            this._userRL = userRL;
         }
 
-        public List<Notes> getAllNotes(long id)
+        public List<Notes> GetAllNotes(long id)
         {
             try
             {
-                return this._notesRL.getAllNotes(id);
+                return this._notesRL.GetAllNotes(id);
             }
             catch (Exception)
             {
@@ -112,11 +119,35 @@ namespace BusinessLayer.Services
             }
         }
 
-        public bool AddReminder(long id, long userId, ReminderModel reminderModel)
+        public bool AddReminder(long id,long userId,ReminderModel reminderModel)
         {
             try
             {
-                return this._notesRL.AddReminder(id, userId, reminderModel);
+                return this._notesRL.AddReminder(id,userId,reminderModel);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool UploadImage(IFormFile file, long noteid)
+        {
+            try
+            {
+                return this._notesRL.UploadImage(file, noteid);            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        public bool DeleteImage(long noteid)
+        {
+            try
+            {
+                return this._notesRL.DeleteImage(noteid);
             }
             catch (Exception)
             {
@@ -124,4 +155,5 @@ namespace BusinessLayer.Services
             }
         }
     }
+
 }

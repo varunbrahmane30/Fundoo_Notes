@@ -1,11 +1,8 @@
-﻿using CommonLayer;
-using Microsoft.EntityFrameworkCore;
-using RepositoryLayer.Entity;
-using System;
-using System.Collections.Generic;
-
-namespace RepositoryLayer.Context
+﻿namespace RepositoryLayer.Context
 {
+    using Microsoft.EntityFrameworkCore;
+    using RepositoryLayer.Entity;
+
     public class UserContext : DbContext
     {
         public UserContext(DbContextOptions options) : base(options)
@@ -14,8 +11,25 @@ namespace RepositoryLayer.Context
 
         public DbSet<User> Users { get; set; }
         public DbSet<Notes> Notes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collaborators.
+        /// </summary>
+        /// <value>
+        /// The collaborators.
+        /// </value>
         public DbSet<Collaborator> Collaborators { get; set; }
+
+        /// <summary>Gets or sets the label.</summary>
+        /// <value>The label.</value>
         public DbSet<Label> Label { get; set; }
+
+        /// <summary>
+        /// Gets or sets the notes label.
+        /// </summary>
+        /// <value>
+        /// The notes label.
+        /// </value>
         public DbSet<NotesLabel> NotesLabel { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

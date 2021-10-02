@@ -37,7 +37,7 @@ namespace FundooNotes.Controllers
         [Authorize]
         public IActionResult GetAllUsers()
         {
-            var useList = this._userBL.getAllUsers();
+            var useList = this._userBL.GetAllUsers();
             return this.Ok(new { Success = true, message = "Get User Data SuccessFully.", Data = useList });
         }
 
@@ -112,7 +112,7 @@ namespace FundooNotes.Controllers
                 {
                     var tokenString = GenerateJSONWebToken(user.Id, user.Email);
 
-                    new MsmqOperation().sendingData(tokenString);
+                    new MsmqOperation().SendingData(tokenString);
                     return this.Ok(new { Success = true, Message = "Reset password link have send to you via Email" });
                 }
                 else

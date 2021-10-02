@@ -1,17 +1,22 @@
-﻿using BusinessLayer.Interface;
-using CommonLayer;
-using RepositoryLayer.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="CollaboratorBL.cs" 
+// </copyright>
+// <author>Varun Brahmane</author>
+//-----------------------------------------------------------------------
 namespace BusinessLayer.Services
 {
+    using BusinessLayer.Interface;
+    using CommonLayer;
+    using RepositoryLayer.Interface;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class CollaboratorBL : ICollaboratorBL
     {
-        private INotesRL _notesRL;
-        private IUserRL _userRL;
-        private ICollaboratorRL _collaboratorRL;
+        readonly private INotesRL _notesRL;
+        readonly private IUserRL _userRL;
+        readonly private ICollaboratorRL _collaboratorRL;
         public CollaboratorBL(INotesRL notesRL, IUserRL userRL, ICollaboratorRL collaboratorRL)
         {
             this._notesRL = notesRL;

@@ -1,14 +1,13 @@
-﻿using RepositoryLayer.Context;
-using RepositoryLayer.Entity;
-using RepositoryLayer.Interface;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace RepositoryLayer.Services
+﻿namespace RepositoryLayer.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using RepositoryLayer.Context;
+    using RepositoryLayer.Interface;
+   
     public class CollaboratorRL: ICollaboratorRL
     {
-        private UserContext _collaboratorContext;
+        readonly private UserContext _collaboratorContext;
 
         public CollaboratorRL(UserContext collaboratorContext)
         {

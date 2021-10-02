@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-using System;
-
-
-namespace RepositoryLayer.Migrations
+﻿namespace RepositoryLayer.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+   
     public partial class remindernullable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

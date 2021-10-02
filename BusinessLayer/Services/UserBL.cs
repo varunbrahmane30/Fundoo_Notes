@@ -1,24 +1,30 @@
-﻿using BusinessLayer.Interface;
-using CommonLayer;
-using RepositoryLayer.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//-----------------------------------------------------------------------
+// <copyright file="UserBL.cs" 
+// </copyright>
+// <author>Varun Brahmane</author>
+//-----------------------------------------------------------------------
+
 
 namespace BusinessLayer.Services
 {
+    using BusinessLayer.Interface;
+    using CommonLayer;
+    using RepositoryLayer.Entity;
+    using System;
+    using System.Collections.Generic;
+   
     public class UserBL : IUserBL
     {
-        private IUserRL _userRL;
+        readonly private IUserRL _userRL;
         public UserBL(IUserRL userRL)
         {
             this._userRL = userRL;
         }
-        public List<User> getAllUsers()
+        public List<User> GetAllUsers()
         {
             try
             {
-                return this._userRL.getAllUsers();
+                return this._userRL.GetAllUsers();
             }
             catch(Exception )
             {

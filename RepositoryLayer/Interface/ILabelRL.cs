@@ -1,10 +1,7 @@
-﻿using CommonLayer;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RepositoryLayer.Interface
+﻿namespace RepositoryLayer.Interface
 {
+    using CommonLayer;
+
     public interface ILabelRL
     {
         public bool AddLabel(long noteId,AddLabelRequest label);

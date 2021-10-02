@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Mail;
 using System.Text;
 using Experimental.System.Messaging;
-using Microsoft.Extensions.Configuration;
-using MimeKit;
+
 
 namespace CommonLayer.MSMQ
 {
     public class MsmqOperation
     {
-        MessageQueue msmq = new MessageQueue();
+        readonly MessageQueue msmq = new MessageQueue();
         
 
-        public void sendingData(string token)
+        public void SendingData(string token)
         {
             msmq.Path = @".\private$\tokenQueue";
             if (!MessageQueue.Exists(msmq.Path))
@@ -22,10 +20,10 @@ namespace CommonLayer.MSMQ
                 MessageQueue.Create(msmq.Path);
             }
 
-            sendtoken(token);
+            Sendtoken(token);
         }
 
-        public void sendtoken(string token)
+        public void Sendtoken(string token)
         {
             //for adding XML formatter to msg
             msmq.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
@@ -45,7 +43,7 @@ namespace CommonLayer.MSMQ
 
                 string token = msg.Body.ToString();
                 //sending a mail via SMTP
-                mailSending(token);
+                MailSending(token);
                 msmq.BeginReceive();
             }
 
@@ -60,7 +58,7 @@ namespace CommonLayer.MSMQ
             }
         }
 
-        private void mailSending(string token)
+        private void MailSending(string token)
         {
             MailMessage mailmsg = new MailMessage("sendertohost@gmail.com", "sendertohost@gmail.com");
             mailmsg.Subject = "Reset password link mail";
