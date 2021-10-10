@@ -8,6 +8,8 @@
     public interface INotesRL
     {
         List<Notes> GetAllNotes(long id);
+        List<Notes> GetBinNotes(long id);
+        List<Notes> GetArchiveNotes(long id);
         public bool CreateNotes(NotesModel notesModel, long userId);
         public bool DeleteNotes(long id, long userId);
         public bool UpdateNotes(long id, long userId, NotesModel notesModel);

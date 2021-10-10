@@ -13,7 +13,7 @@ using RepositoryLayer.Entity;
 
 namespace FundooNotes.Controllers
 {
-    [Route("api/User")]
+    [Route("user")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -69,8 +69,9 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [AllowAnonymous]
         [HttpPost("login")]
+        [AllowAnonymous]
+
         public IActionResult UserLogin([FromBody] LogInModel logInModel)
         {
             try
@@ -109,7 +110,7 @@ namespace FundooNotes.Controllers
                 User user = _userBL.ForgotPassword(forgotPassword);
 
                 if (user != null)
-                {
+                 {
                     var tokenString = GenerateJSONWebToken(user.Id, user.Email);
 
                     new MsmqOperation().SendingData(tokenString);
@@ -132,7 +133,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPut("resetPassword")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult ResetPassword(ResetPassword resetPasswordModel)
         {
             try
@@ -184,7 +185,7 @@ namespace FundooNotes.Controllers
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
               Claims, 
-              expires: DateTime.Now.AddMinutes(60),
+              expires: DateTime.Now.AddMinutes(1440),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

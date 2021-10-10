@@ -27,8 +27,35 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var result = _notesContext.Notes.Where(e => e.Userid == userId).ToList();
+                var result = _notesContext.Notes.Where(e => e.Userid == userId && e.isArchive == false 
+                                                        && e.isTrash == false ).ToList();
                 result.AddRange(GetSharedNotes(userId));
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Notes> GetBinNotes(long userId)
+        {
+            try
+            {
+                var result = _notesContext.Notes.Where(e => e.Userid == userId && e.isTrash == true).ToList();
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Notes> GetArchiveNotes(long userId)
+        {
+            try
+            {
+                var result = _notesContext.Notes.Where(e => e.Userid == userId && e.isArchive == true).ToList();
                 return result;
             }
             catch (Exception)

@@ -64,8 +64,8 @@ namespace CommonLayer.MSMQ
             mailmsg.Subject = "Reset password link mail";
             var body = new StringBuilder();
 
-            body.AppendLine("Hello, To Reset your Account Password click the link below.");
-            body.AppendLine("<a href=\"https://localhost:5001/User/ResetPassword/" + token + "\">Click Here</a>");
+            body.AppendLine("To reset the user password click on this link. (This message is auto-generated from Team Fundoo Notes)");
+            body.AppendLine("<a href=\"http://localhost:4200/resetPassword/" + token + "\">Click Here</a>");
             mailmsg.Body = body.ToString();
             mailmsg.IsBodyHtml = true;
 

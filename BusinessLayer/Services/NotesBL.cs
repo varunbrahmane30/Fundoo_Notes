@@ -35,6 +35,30 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
+
+        public List<Notes> GetBinNotes(long id)
+        {
+            try
+            {
+                return this._notesRL.GetBinNotes(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Notes> GetArchiveNotes(long id)
+        {
+            try
+            {
+                return this._notesRL.GetArchiveNotes(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public bool CreateNotes(NotesModel notesModel, long userId)
         {
             try

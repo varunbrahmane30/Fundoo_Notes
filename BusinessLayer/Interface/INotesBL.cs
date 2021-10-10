@@ -14,6 +14,9 @@ namespace BusinessLayer.Interface
     public interface INotesBL 
     {
         List<Notes> GetAllNotes(long id);
+        List<Notes> GetBinNotes(long id);
+
+        List<Notes> GetArchiveNotes(long id);
 
         public bool CreateNotes(NotesModel notesModel, long userId);
 

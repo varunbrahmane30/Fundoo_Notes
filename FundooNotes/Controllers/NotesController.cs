@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------
+ //-----------------------------------------------------------------------
 // <copyright file="NotesController.cs" company="Varun">
 //     Company copyright tag.
 // </copyright>
@@ -37,6 +37,23 @@ namespace FundooNotes.Controllers
             return this.Ok(new { Success = true, message = "get notes SuccessFully.", Data = useList });
         }
 
+        [HttpGet]
+        [Route("bin")]
+        public IActionResult GetBinNotes()
+        {
+            var id = GetTokenID();
+            var useList = this._notesBL.GetBinNotes(id);
+            return this.Ok(new { Success = true, message = "get bin notes SuccessFully.", Data = useList });
+        }
+
+        [HttpGet]
+        [Route("archive")]
+        public IActionResult GetArchiveNotes()
+        {
+            var id = GetTokenID();
+            var useList = this._notesBL.GetArchiveNotes(id);
+            return this.Ok(new { Success = true, message = "get bin notes SuccessFully.", Data = useList });
+        }
 
         [HttpPost]
         public IActionResult CreateNote(NotesModel notesModel)
